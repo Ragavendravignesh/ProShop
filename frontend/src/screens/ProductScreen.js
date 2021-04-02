@@ -1,14 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-  ListGroup,
-  Image,
-  ListGroupItem,
-  Button,
-  Row,
-  Col,
-  Card,
-} from 'react-bootstrap'
+import { ListGroup, Image, Button, Row, Col, Card } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import products from '../products'
 
