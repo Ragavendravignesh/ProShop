@@ -10,6 +10,7 @@ const authUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     res.send({
       _id: user._id,
+      name: user.name,
       email: user.email,
       password: user.password,
       isAdmin: user.isAdmin,
@@ -27,6 +28,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     res.send({
       _id: user._id,
+      name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
     })
@@ -50,6 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
     if (user) {
       res.send({
         _id: user._id,
+        name: user.name,
         email: user.email,
         password: user.password,
         isAdmin: user.isAdmin,
