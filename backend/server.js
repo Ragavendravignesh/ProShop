@@ -4,8 +4,9 @@ import connectDB from './config/db.js'
 
 import {notFound, errorHandler } from './middleware/errorMiddleware.js'
 
-import productsRouter from './routes/productRoutes.js'
-import userRouter from './routes/userRouter.js'
+import productsRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 dotenv.config()
 
@@ -19,8 +20,9 @@ app.get('/', (req, res) => {
   res.send('API is Running...')
 })
 
-app.use('/api/products', productsRouter)
-app.use('/api/users', userRouter)
+app.use('/api/products', productsRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
 app.use(notFound);
 app.use(errorHandler);
