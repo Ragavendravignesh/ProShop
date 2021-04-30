@@ -161,9 +161,9 @@ const OrderScreen = ({ match }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               { loadingPay && <Loader/> }
-                <PayPalButton 
+              { !sdkReady && <PayPalButton 
                 amount = {order.totalPrice}
-                onSuccess = {successPaymentHandler} />
+                onSuccess = {successPaymentHandler} /> }
             </ListGroup.Item>
           </ListGroup>
         </Card>
