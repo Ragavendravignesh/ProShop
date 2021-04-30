@@ -111,4 +111,37 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 })
 
-export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser }
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password')
+
+  if(user) {
+    res.json(user)
+  } else {
+    res.status(401)
+    throw new Error('Not able to find an User with id')
+  }
+})
+
+const updateUser = asyncHandler (async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if(user) {
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    user.isAdmin = req.body.isAdmin || user.isAdmin
+
+    const updateUser = await user.save()
+    res.json({
+      id: updateUser._id,
+      name: updateUser.name,
+      email: updateUser.email,
+      isAdmin: updateUser.isAdmin,
+      token: generateToken(updateUser._id)
+    })
+  } else {
+    res.status(401)
+    throw new Error('Could not find an user with Id')
+  }
+})
+
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser, updateUser, getUserById }
