@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProducts } from '../actions/productActions'
+import { listProducts, deleteProduct } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -15,16 +15,19 @@ const ProductListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const ProductDelete = useSelector(state => state.ProductDelete) 
+  const {loading: loadingDelete, error: errorDelete, success: successDelete } = ProductDelete
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listProducts())
     } else {
       history.push('/login')
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, successDelete ])
 
   const deleteHandler = (id) => {
-    // delete product
+    dispatch(deleteProduct(id))
   }
 
   const createProductHandler = () => {}
@@ -40,6 +43,8 @@ const ProductListScreen = ({ history }) => {
           </Button> 
         </Col>
       </Row>
+      {loadingDelete && <Loader/>}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message> }
       {loading ? (
         <Loader />
       ) : error ? (
