@@ -107,49 +107,49 @@ const ProfileScreen = ({ location, history }) => {
           <Loader />
         ) : errorOrders ? (
           <Message variant='danger'>Sorry something went wrong</Message>
-        ) : (
-          <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-              <th>ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIEVERED</th>
-              <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0,10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0,10)
-                    ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelievered ? (
-                      order.delieveredAt
-                    ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/orders/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
-                        Details
-                      </Button>
-                    </LinkContainer>
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-          </Table>
+        ) : (orders &&  orders.length > 0 && 
+        <Table striped bordered hover responsive className='table-sm'>
+        <thead>
+          <tr>
+          <th>ID</th>
+          <th>DATE</th>
+          <th>TOTAL</th>
+          <th>PAID</th>
+          <th>DELIEVERED</th>
+          <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order._id}>
+              <td>{order._id}</td>
+              <td>{order.createdAt.substring(0,10)}</td>
+              <td>{order.totalPrice}</td>
+              <td>
+                {order.isPaid ? (
+                  order.paidAt.substring(0,10)
+                ) : (
+                  <i className='fas fa-times' style={{ color: 'red' }}></i>
+                )}
+              </td>
+              <td>
+                {order.isDelievered ? (
+                  order.delieveredAt
+                ) : (
+                  <i className='fas fa-times' style={{ color: 'red' }}></i>
+                )}
+              </td>
+              <td>
+                <LinkContainer to={`/orders/${order._id}`}>
+                  <Button className='btn-sm' variant='light'>
+                    Details
+                  </Button>
+                </LinkContainer>
+                </td>
+            </tr>
+            ))}
+        </tbody>
+      </Table>
         )}
       </Col>
     </Row>
