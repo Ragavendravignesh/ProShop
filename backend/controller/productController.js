@@ -23,11 +23,61 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   if (product) {
     await product.remove()
-    res.json({ message : 'Product Removed' })
+    res.json({ message: 'Product Removed' })
   } else {
     res.status(404)
     throw new Error('Product not found')
   }
 })
 
-export {getProducts, getProductById, deleteProduct }
+const createProduct = asyncHandler(async (req, res) => {
+  const product = new Product({
+    user: req.user.id,
+    name: 'Sample Name',
+    image: '/images/sample.jpg',
+    description: 'Sample Description',
+    brand: 'Test',
+    category: 'Sample catergory',
+    price: 0,
+    countInStock: 0,
+    rating: 0,
+    numReviews: 0,
+  })
+  const createdProduct = await product.save()
+
+  if (createProduct) {
+    res.json(createdProduct)
+  } else {
+    res.status(401)
+    throw new Error('Not able to create product')
+  }
+})
+
+const updateProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id)
+
+  const {name, image, description, brand, category, price, countInStock, rating, numReviews } = req.body
+
+  if (product) {
+      product.user = req.user.id || product.id,
+      product.name = name || product.name,
+      product.image = image || product.image,
+      product.description = description || product.description,
+      product.brand = brand || product.brand,
+      product.category = category || product.category,
+      product.price = price || product.price,
+      product.countInStock = countInStock || product.countInStock,
+      product.rating = rating || product.rating,
+      product.numReviews = numReviews || product.numReviews
+
+      const updatedProduct = await product.save()
+
+      res.json(updatedProduct)
+    }
+    else {
+      res.status(401)
+      throw new Error('Product not found')
+    }
+})
+
+export { getProducts, getProductById, deleteProduct, createProduct, updateProduct }
