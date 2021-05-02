@@ -17,8 +17,6 @@ const ProductEditScreen = ({ match, history }) => {
   const [category, setCategory] = useState('')
   const [price, setPrice] = useState(0)
   const [countInStock, setCountInStock] = useState('')
-  const [rating, setRating] = useState(0)
-  const [numReviews, setNumReviews] = useState(0)
 
   const dispatch = useDispatch()
 
@@ -47,8 +45,6 @@ const ProductEditScreen = ({ match, history }) => {
         setCategory(product.category)
         setPrice(product.price)
         setCountInStock(product.countInStock)
-        setRating(product.rating)
-        setNumReviews(product.numReviews)
       }
     }
   }, [product, productId, dispatch, history, successUpdate])
@@ -64,9 +60,7 @@ const ProductEditScreen = ({ match, history }) => {
         brand,
         category,
         price,
-        countInStock,
-        rating,
-        numReviews,
+        countInStock
       })
     )
   }
@@ -150,25 +144,6 @@ const ProductEditScreen = ({ match, history }) => {
                 onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
             </FormGroup>
-            <FormGroup controlId='rating'>
-              <Form.Label>Rating:</Form.Label>
-              <Form.Control
-                type='number'
-                value={rating}
-                placeholder='Enter rating'
-                onChange={(e) => setRating(e.target.value)}
-              ></Form.Control>
-            </FormGroup>
-            <FormGroup controlId='numReviews'>
-              <Form.Label>Number of Reviews:</Form.Label>
-              <Form.Control
-                type='number'
-                value={numReviews}
-                placeholder='Enter number of reviews'
-                onChange={(e) => setNumReviews(e.target.value)}
-              ></Form.Control>
-            </FormGroup>
-
             <Button type='submit' variant='primary'>
               Update
             </Button>
