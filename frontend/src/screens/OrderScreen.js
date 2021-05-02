@@ -43,8 +43,7 @@ const OrderScreen = ({ match }) => {
     }
   }, [order, orderId, dispatch, successPay])
 
-  const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult) 
+  const successPaymentHandler = (paymentResult) => { 
     dispatch(payOrder(orderId, paymentResult))
   }
 
@@ -161,7 +160,7 @@ const OrderScreen = ({ match }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               { loadingPay && <Loader/> }
-              { !sdkReady && <PayPalButton 
+              { <PayPalButton 
                 amount = {order.totalPrice}
                 onSuccess = {successPaymentHandler} /> }
             </ListGroup.Item>
