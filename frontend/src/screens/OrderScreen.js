@@ -16,7 +16,7 @@ import {
 } from '../constants/orderConstants'
 import { PayPalButton } from 'react-paypal-button-v2'
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
 
   const orderDetails = useSelector((state) => state.orderDetails)
@@ -35,6 +35,10 @@ const OrderScreen = ({ match }) => {
   const [sdkReady, setSdkReady] = useState(false)
 
   useEffect(() => {
+    if(!userInfo) {
+      history.push('/login')
+    }
+
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       const script = document.createElement('script')
@@ -187,7 +191,7 @@ const OrderScreen = ({ match }) => {
                 />
               )}
             </ListGroup.Item>
-            {userInfo.isAdmin && order.isPaid && !order.isDelievered && (
+            {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelievered && (
               <Button
                 type='button'
                 className='btn-block'
