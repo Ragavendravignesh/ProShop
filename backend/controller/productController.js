@@ -18,7 +18,7 @@ const getProducts = asyncHandler(async (req, res) => {
   const count = await Product.countDocuments({...keyword})
   const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page-1))
 
-  res.send({products, page, pages: (count/pageSize) })
+  res.send({products, page, pages: Math.ceil(count/pageSize) })
 })
 
 const getProductById = asyncHandler(async (req, res) => {
