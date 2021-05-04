@@ -11,13 +11,14 @@ const HomeScreen = ({ match }) => {
   const dispatch = useDispatch()
 
   const keyword = match.params.keyword 
+  const pageNumber = match.params.pageNumber
 
   const ProductList = useSelector((state) => state.ProductList)
   const { error, loading, products } = ProductList
 
   useEffect(() => {
-    dispatch(listProducts(keyword))
-  }, [dispatch, keyword])
+    dispatch(listProducts(keyword, pageNumber))
+  }, [dispatch, keyword, pageNumber])
 
   return (
     <>
