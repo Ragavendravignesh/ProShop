@@ -8,6 +8,7 @@ import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import { useDispatch, useSelector } from 'react-redux'
 import Meta from '../components/Meta'
+import { Link } from 'react-router-dom'
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta/>
       <h1>Latest Products</h1>
-      { !keyword && <ProductCarousel/> }
+      { !keyword ? <ProductCarousel/> : <Link to='/' className='btn btn-light'>Go back</Link> }
       {loading ? (
         <Loader/>
       ) : error ? (
