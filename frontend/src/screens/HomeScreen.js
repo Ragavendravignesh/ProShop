@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import { useDispatch, useSelector } from 'react-redux'
+import Meta from '../components/Meta'
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch()
@@ -23,6 +24,7 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      <Meta/>
       <h1>Latest Products</h1>
       { !keyword && <ProductCarousel/> }
       {loading ? (
